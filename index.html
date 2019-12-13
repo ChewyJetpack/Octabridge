@@ -1,0 +1,30 @@
+<DOCTYPE html>
+<head>
+</head>
+<body>
+<script>
+navigator.requestMIDIAccess()
+    .then(onMIDISuccess, onMIDIFailure);
+
+function onMIDISuccess(midiAccess) {
+
+    var inputs = midiAccess.inputs;
+    var outputs = midiAccess.outputs;
+    console.log(midiAccess, inputs, outputs);
+
+    for (var input of midiAccess.inputs.values()) {
+        input.onmidimessage = getMIDIMessage;
+    }
+}
+
+
+function getMIDIMessage(midiMessage) {
+    console.log(midiMessage);
+}
+
+function onMIDIFailure() {
+    console.log('Could not access your MIDI devices.');
+}
+</script>
+</body>
+</html>
